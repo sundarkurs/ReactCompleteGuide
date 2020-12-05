@@ -1,9 +1,12 @@
 import "./App.css";
+import Person from "./Person/Person";
 
 function App() {
+  
   return (
     <div className="App">
-      <h1>React</h1>
+      <Person name="Sundar" age="37"></Person>
+      <Person name="Sundar" age="37"></Person>
     </div>
   );
 }
