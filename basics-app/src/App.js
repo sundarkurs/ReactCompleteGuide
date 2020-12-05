@@ -4,51 +4,66 @@ import User from "./User/User";
 
 class App extends Component {
   state = {
-    persons: [
+    users: [
       { id: 1, name: "Sundar", age: 36 },
       { id: 2, name: "Diya", age: 5 },
       { id: 3, name: "Shwetha", age: 30 },
     ],
-    showPersons: false,
+    showUsers: false,
   };
 
   showUsersHandler = () => {
-    this.setState({ showPersons: true });
+    this.setState({ showUsers: true });
   };
 
   hideUsersHandler = () => {
-    this.setState({ showPersons: false });
+    this.setState({ showUsers: false });
   };
 
   deleteUserHandler = () => {
     console.log("Delete");
   };
 
+  changeNameHandler = () => {
+    console.log("Changed");
+  };
+
   render() {
-    return (
-      <div className="App">
+    const buttonStyle = {
+      backgroundColor: "pink",
+      border: "1px solid blue",
+    };
+
+    let users = null;
+
+    if (this.state.showUsers) {
+      users = (
         <div>
-          <button onClick={this.showUsersHandler}>Show Users</button>
-          <button onClick={this.hideUsersHandler}>Hide Users</button>
-        </div>
-        <div>
-          {this.state.showPersons ? (
-            <div>
+          {this.state.users.map((user) => {
+            return (
               <User
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}
+                name={user.name}
+                age={user.age}
                 deleteUser={this.deleteUserHandler}
+                changeName={this.changeNameHandler}
               >
                 On annual vacation
               </User>
-
-              <User
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-              ></User>
-            </div>
-          ) : null}
+            );
+          })}
         </div>
+      );
+    }
+
+    return (
+      <div className="App">
+        <div>
+          <button style={buttonStyle} onClick={this.showUsersHandler}>
+            Show Users
+          </button>
+          <button onClick={this.hideUsersHandler}>Hide Users</button>
+        </div>
+        <div>{users}</div>
       </div>
     );
   }
