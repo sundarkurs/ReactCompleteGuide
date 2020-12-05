@@ -24,10 +24,23 @@ class App extends Component {
     const users = [...this.state.users];
     users.splice(index, 1);
     this.setState({ users: users });
+
     console.log("Deleted");
   };
 
-  changeNameHandler = () => {
+  changeNameHandler = (event, id) => {
+    const userIndex = this.state.users.findIndex((u) => {
+      return u.id === id;
+    });
+
+    const user = { ...this.state.users[userIndex] };
+    user.name = event.target.value;
+
+    const users = [...this.state.users];
+    users[userIndex] = user;
+
+    this.setState({ users: users });
+
     console.log("Changed");
   };
 
@@ -52,10 +65,11 @@ class App extends Component {
           {this.state.users.map((user, index) => {
             return (
               <User
+                key={user.id}
                 name={user.name}
                 age={user.age}
                 deleteUser={() => this.deleteUserHandler(index)}
-                changeName={this.changeNameHandler}
+                changeName={(event) => this.changeNameHandler(event, user.id)}
               >
                 On annual vacation
               </User>
