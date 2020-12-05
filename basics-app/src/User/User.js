@@ -5,7 +5,12 @@ const User = (props) => {
   return (
     <div className="User">
       <h1>
-        Name: <input onChange={props.changeName} type="textbox" value={props.name}></input>
+        Name:
+        <input
+          onChange={props.changeName}
+          type="textbox"
+          value={props.name}
+        ></input>
       </h1>
       <p>Age: {props.age}</p>
 

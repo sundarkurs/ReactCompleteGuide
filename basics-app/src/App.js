@@ -20,8 +20,11 @@ class App extends Component {
     this.setState({ showUsers: false });
   };
 
-  deleteUserHandler = () => {
-    console.log("Delete");
+  deleteUserHandler = (index) => {
+    const users = [...this.state.users];
+    users.splice(index, 1);
+    this.setState({ users: users });
+    console.log("Deleted");
   };
 
   changeNameHandler = () => {
@@ -29,22 +32,29 @@ class App extends Component {
   };
 
   render() {
-    const buttonStyle = {
+    // Inline styling
+    const showButtonStyle = {
       backgroundColor: "pink",
       border: "1px solid blue",
     };
 
+    const hideButtonStyle = {
+      backgroundColor: "grey",
+      border: "1px solid blue",
+    };
+
+    // Pre
     let users = null;
 
     if (this.state.showUsers) {
       users = (
         <div>
-          {this.state.users.map((user) => {
+          {this.state.users.map((user, index) => {
             return (
               <User
                 name={user.name}
                 age={user.age}
-                deleteUser={this.deleteUserHandler}
+                deleteUser={() => this.deleteUserHandler(index)}
                 changeName={this.changeNameHandler}
               >
                 On annual vacation
@@ -55,13 +65,16 @@ class App extends Component {
       );
     }
 
+    // The main return of the component
     return (
       <div className="App">
         <div>
-          <button style={buttonStyle} onClick={this.showUsersHandler}>
+          <button style={showButtonStyle} onClick={this.showUsersHandler}>
             Show Users
           </button>
-          <button onClick={this.hideUsersHandler}>Hide Users</button>
+          <button style={hideButtonStyle} onClick={this.hideUsersHandler}>
+            Hide Users
+          </button>
         </div>
         <div>{users}</div>
       </div>
