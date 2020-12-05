@@ -20,6 +20,10 @@ class App extends Component {
     this.setState({ showPersons: false });
   };
 
+  deleteUserHandler = () => {
+    console.log("Delete");
+  };
+
   render() {
     return (
       <div className="App">
@@ -29,10 +33,20 @@ class App extends Component {
         </div>
         <div>
           {this.state.showPersons ? (
-            <User
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-            ></User>
+            <div>
+              <User
+                name={this.state.persons[0].name}
+                age={this.state.persons[0].age}
+                deleteUser={this.deleteUserHandler}
+              >
+                On annual vacation
+              </User>
+
+              <User
+                name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+              ></User>
+            </div>
           ) : null}
         </div>
       </div>
