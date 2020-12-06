@@ -12,12 +12,8 @@ class App extends Component {
     showUsers: false,
   };
 
-  showUsersHandler = () => {
-    this.setState({ showUsers: true });
-  };
-
-  hideUsersHandler = () => {
-    this.setState({ showUsers: false });
+  toggleUsersHandler = () => {
+    this.setState({ showUsers: !this.state.showUsers });
   };
 
   deleteUserHandler = (index) => {
@@ -83,11 +79,11 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <button style={showButtonStyle} onClick={this.showUsersHandler}>
-            Show Users
-          </button>
-          <button style={hideButtonStyle} onClick={this.hideUsersHandler}>
-            Hide Users
+          <button
+            style={this.state.showUsers ? hideButtonStyle : showButtonStyle}
+            onClick={this.toggleUsersHandler}
+          >
+            {this.state.showUsers ? "Hide Users" : "Show Users"}
           </button>
         </div>
         <div>{users}</div>
