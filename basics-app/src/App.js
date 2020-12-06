@@ -67,12 +67,22 @@ class App extends Component {
                 deleteUser={() => this.deleteUserHandler(index)}
                 changeName={(event) => this.changeNameHandler(event, user.id)}
               >
-                On annual vacation
+                {index === 0 ? "On annual vacation" : ""}
               </User>
             );
           })}
         </div>
       );
+    }
+
+    // Building dynamic classes
+    const usersListClass = [];
+    if (this.state.users.length <= 2) {
+      usersListClass.push("red");
+    }
+
+    if (this.state.users.length <= 1) {
+      usersListClass.push("bold");
     }
 
     // The main return of the component
@@ -85,6 +95,7 @@ class App extends Component {
           >
             {this.state.showUsers ? "Hide Users" : "Show Users"}
           </button>
+          <p className={usersListClass.join(" ")}>List of users.</p>
         </div>
         <div>{users}</div>
       </div>
