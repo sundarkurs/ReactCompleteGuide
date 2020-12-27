@@ -1,6 +1,6 @@
 import React from "react";
 
-const cockpit = (props) => {
+const userCockpit = (props) => {
   // Inline styling
   const showButtonStyle = {
     backgroundColor: "pink",
@@ -35,4 +35,4 @@ const cockpit = (props) => {
   );
 };
 
-export default cockpit;
+export default userCockpit;
