@@ -1,19 +1,19 @@
 import React from "react";
-import "./User.css";
+import "./User.css"
 
 const User = (props) => {
   return (
     <div className="User">
-      <h1>{props.name}</h1>
+      <h1>{props.user.name}</h1>
       <p>
         Name:
         <input
           onChange={props.changeName}
           type="textbox"
-          value={props.name}
+          value={props.user.name}
         ></input>
       </p>
-      <p>Age: {props.age}</p>
+      <p>Age: {props.user.age}</p>
 
       {props.children ? <div>More Info: {props.children}</div> : null}
 
