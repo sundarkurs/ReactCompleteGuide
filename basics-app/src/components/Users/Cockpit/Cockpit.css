@@ -1,0 +1,17 @@
+.cockpit {
+  text-align: center;
+  width: 90%;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px #888888;
+  padding: 1px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+}

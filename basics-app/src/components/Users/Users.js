@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import UserList from "../Users/UserList/UserList";
-import UserCockpit from "../Users/UserCockpit/UserCockpit";
+import Cockpit from "./Cockpit/Cockpit";
 
 class Users extends Component {
-  constructor(props) {
-    super(props);
-    console.log("[App] constructor");
-    // Don't call this.setState() here!
-    //this.state = { counter: 0 };
-    //this.handleClick = this.handleClick.bind(this);
-  }
 
   state = {
     users: [
@@ -20,30 +13,6 @@ class Users extends Component {
     showUsers: false,
   };
 
-  static getDerivedStateFromProps(props, state) {
-    console.log("[App] getDerivedStateFromProps");
-    return null;
-  }
-
-  componentDidMount() {
-    console.log("[App] componentDidMount");
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("[App] shouldComponentUpdate");
-    return true;
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    console.log("[App] getSnapshotBeforeUpdate");
-    return { message: "snapshot" };
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("[App] componentDidUpdate");
-    console.log(snapshot);
-  }
-
   toggleUsersHandler = () => {
     this.setState({ showUsers: !this.state.showUsers });
   };
@@ -52,7 +21,6 @@ class Users extends Component {
     const users = [...this.state.users];
     users.splice(index, 1);
     this.setState({ users: users });
-
     console.log("Deleted");
   };
 
@@ -73,14 +41,13 @@ class Users extends Component {
   };
 
   render() {
-    console.log("[App] render");
     return (
       <div className="App">
-        <UserCockpit
-          users={this.state.users}
+        <Cockpit
+          usersCount={this.state.users.length}
           showUsers={this.state.showUsers}
           toggleButton={this.toggleUsersHandler}
-        ></UserCockpit>
+        ></Cockpit>
 
         <div>
           {this.state.showUsers && (
