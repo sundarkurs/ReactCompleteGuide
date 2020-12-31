@@ -1,0 +1,8 @@
+.Movie {
+  width: 300px;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px #888888;
+  padding: 5px;
+  margin: 8px;
+  display: inline-block;
+}
