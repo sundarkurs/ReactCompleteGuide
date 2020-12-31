@@ -16,7 +16,15 @@ class Header extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[Header] shouldComponentUpdate");
-    return true;
+
+    // This hook can be used to improve the performance by returning false
+    // when there are no changes in the dependent data, so that render 
+    // and reset of the lifecycle hooks can be avoided
+    if (nextProps.moviesCount !== this.props.moviesCount) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   render() {

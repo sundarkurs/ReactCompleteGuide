@@ -5,7 +5,9 @@ class Movie extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isEditable: false,
+    };
 
     console.log("[Movie] - constructor");
   }
@@ -17,6 +19,7 @@ class Movie extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[Movie] shouldComponentUpdate");
+
     return true;
   }
 
@@ -28,15 +31,26 @@ class Movie extends Component {
           {this.props.index + 1}. {this.props.movie.name} (
           {this.props.movie.rating}*)
         </h5>
-        <p>{this.props.movie.description}</p>
-        <p>
-          <textarea
-            value={this.props.movie.description}
-            onChange={(event) =>
-              this.props.changeDesc(event, this.props.movie.id)
-            }
-          />
-        </p>
+        {!this.state.isEditable ? <p>{this.props.movie.description}</p> : ""}
+        {this.state.isEditable ? (
+          <p>
+            <textarea
+              value={this.props.movie.description}
+              onChange={(event) =>
+                this.props.changeDesc(event, this.props.movie.id)
+              }
+            />
+          </p>
+        ) : (
+          ""
+        )}
+        <button
+          onClick={() => {
+            this.setState({ isEditable: !this.state.isEditable });
+          }}
+        >
+          {this.state.isEditable ? "Close" : "Edit"}
+        </button>
       </div>
     );
   }

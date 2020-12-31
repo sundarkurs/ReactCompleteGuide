@@ -17,6 +17,7 @@ class MovieList extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[MovieList] shouldComponentUpdate");
+
     return true;
   }
 
