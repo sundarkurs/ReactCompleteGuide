@@ -1,5 +1,5 @@
 import React from "react";
-import "./User.css"
+import "./User.css";
 
 const User = (props) => {
   return (
@@ -8,7 +8,7 @@ const User = (props) => {
       <p>
         Name:
         <input
-          onChange={props.changeName}
+          onChange={(event) => props.changeName(event, props.user.id)}
           type="textbox"
           value={props.user.name}
         ></input>

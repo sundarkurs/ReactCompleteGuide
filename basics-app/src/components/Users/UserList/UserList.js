@@ -8,7 +8,7 @@ const userList = (props) => {
         user={user}
         key={user.id}
         deleteUser={() => props.deleteUser(index)}
-        changeName={(event) => props.changeName(event, user.id)}
+        changeName={props.changeName}
       >
         {index === 0 ? "On annual vacation" : ""}
       </User>
