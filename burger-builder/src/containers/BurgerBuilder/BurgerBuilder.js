@@ -3,6 +3,13 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Burger from "../../components/Burger/Burger";
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
 
+const INGREDIENT_PRICES = {
+  salad: 1,
+  cheese: 1,
+  meat: 2,
+  bacon: 2,
+};
+
 class BurgerBuilder extends Component {
   // constructor(props) {
   //   super(props);
@@ -16,13 +23,52 @@ class BurgerBuilder extends Component {
       meat: 0,
       bacon: 0,
     },
+    totalPrice: 4,
+  };
+
+  addIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    const newCount = oldCount + 1;
+    const updateIngredients = { ...this.state.ingredients };
+    updateIngredients[type] = newCount;
+
+    const oldTotal = this.state.totalPrice;
+    const newTotal = oldTotal + INGREDIENT_PRICES[type];
+
+    this.setState({ ingredients: updateIngredients, totalPrice: newTotal });
+  };
+
+  removeIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    if (oldCount <= 0) {
+      return;
+    }
+
+    const newCount = oldCount - 1;
+    const updateIngredients = { ...this.state.ingredients };
+    updateIngredients[type] = newCount;
+
+    const oldTotal = this.state.totalPrice;
+    const newTotal = oldTotal - INGREDIENT_PRICES[type];
+
+    this.setState({ ingredients: updateIngredients, totalPrice: newTotal });
   };
 
   render() {
+    const lessDisableInfo = { ...this.state.ingredients };
+    for (let key in lessDisableInfo) {
+      lessDisableInfo[key] = lessDisableInfo[key] <= 0;
+    }
+
     return (
       <Auxiliary>
         <Burger ingredients={this.state.ingredients}></Burger>
-        <BuildControls></BuildControls>
+        <BuildControls
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
+          lessDisableInfo={lessDisableInfo}
+          price={this.state.totalPrice}
+        ></BuildControls>
       </Auxiliary>
     );
   }

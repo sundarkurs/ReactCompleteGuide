@@ -10,6 +10,7 @@ const burger = (props) => {
     [...Array(2)] -> returns an array of two empty items
     
   */
+ debugger;
 
   const transformedIngredients = Object.keys(props.ingredients).map(
     (igKey, index) => {
