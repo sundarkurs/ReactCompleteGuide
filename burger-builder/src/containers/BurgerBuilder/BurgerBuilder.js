@@ -24,6 +24,20 @@ class BurgerBuilder extends Component {
       bacon: 0,
     },
     totalPrice: 4,
+    purchasable: false,
+  };
+
+  updatePurchaseState () {
+    const ingredients = { ...this.state.ingredients };
+    const values = Object.keys(ingredients)
+      .map((igKey, index) => {
+        return ingredients[igKey];
+      })
+      .reduce((values, el) => {
+        return values + el;
+      }, 0);
+
+    this.setState({ purchasable: values > 0 });
   };
 
   addIngredientHandler = (type) => {
@@ -35,7 +49,13 @@ class BurgerBuilder extends Component {
     const oldTotal = this.state.totalPrice;
     const newTotal = oldTotal + INGREDIENT_PRICES[type];
 
-    this.setState({ ingredients: updateIngredients, totalPrice: newTotal });
+    
+    this.setState({ ingredients: updateIngredients, totalPrice: newTotal }, function () {
+      // Calling update method on callback to get the latest state otherwise 
+      // the state will return old because it's state updates are asynchronous
+      this.updatePurchaseState();
+    });
+    
   };
 
   removeIngredientHandler = (type) => {
@@ -51,7 +71,9 @@ class BurgerBuilder extends Component {
     const oldTotal = this.state.totalPrice;
     const newTotal = oldTotal - INGREDIENT_PRICES[type];
 
-    this.setState({ ingredients: updateIngredients, totalPrice: newTotal });
+    this.setState({ ingredients: updateIngredients, totalPrice: newTotal }, function () {
+      this.updatePurchaseState();
+    });
   };
 
   render() {
@@ -68,6 +90,7 @@ class BurgerBuilder extends Component {
           ingredientRemoved={this.removeIngredientHandler}
           lessDisableInfo={lessDisableInfo}
           price={this.state.totalPrice}
+          purchasable={this.state.purchasable}
         ></BuildControls>
       </Auxiliary>
     );
