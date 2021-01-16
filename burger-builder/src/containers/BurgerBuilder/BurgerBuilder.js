@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Burger from "../../components/Burger/Burger";
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   salad: 1,
@@ -27,7 +29,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
   };
 
-  updatePurchaseState () {
+  updatePurchaseState() {
     const ingredients = { ...this.state.ingredients };
     const values = Object.keys(ingredients)
       .map((igKey, index) => {
@@ -38,7 +40,7 @@ class BurgerBuilder extends Component {
       }, 0);
 
     this.setState({ purchasable: values > 0 });
-  };
+  }
 
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -49,13 +51,14 @@ class BurgerBuilder extends Component {
     const oldTotal = this.state.totalPrice;
     const newTotal = oldTotal + INGREDIENT_PRICES[type];
 
-    
-    this.setState({ ingredients: updateIngredients, totalPrice: newTotal }, function () {
-      // Calling update method on callback to get the latest state otherwise 
-      // the state will return old because it's state updates are asynchronous
-      this.updatePurchaseState();
-    });
-    
+    this.setState(
+      { ingredients: updateIngredients, totalPrice: newTotal },
+      function () {
+        // Calling update method on callback to get the latest state otherwise
+        // the state will return old because it's state updates are asynchronous
+        this.updatePurchaseState();
+      }
+    );
   };
 
   removeIngredientHandler = (type) => {
@@ -71,9 +74,12 @@ class BurgerBuilder extends Component {
     const oldTotal = this.state.totalPrice;
     const newTotal = oldTotal - INGREDIENT_PRICES[type];
 
-    this.setState({ ingredients: updateIngredients, totalPrice: newTotal }, function () {
-      this.updatePurchaseState();
-    });
+    this.setState(
+      { ingredients: updateIngredients, totalPrice: newTotal },
+      function () {
+        this.updatePurchaseState();
+      }
+    );
   };
 
   render() {
@@ -84,6 +90,10 @@ class BurgerBuilder extends Component {
 
     return (
       <Auxiliary>
+        <Modal>
+          <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+        </Modal>
+
         <Burger ingredients={this.state.ingredients}></Burger>
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
