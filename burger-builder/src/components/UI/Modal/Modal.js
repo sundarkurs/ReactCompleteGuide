@@ -11,6 +11,7 @@ class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[Modal] shouldComponentUpdate");
     return nextProps.show !== this.props.show;
+    //return true;
   }
 
   componentWillUpdate() {
@@ -18,6 +19,7 @@ class Modal extends Component {
   }
 
   render() {
+    console.log("[Modal] render");
     return (
       <Auxiliary>
         <Backdrop
