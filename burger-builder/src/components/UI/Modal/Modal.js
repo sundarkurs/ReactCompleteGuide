@@ -6,7 +6,7 @@ import classes from "./Modal.module.css";
 const modal = (props) => {
   return (
     <Auxiliary>
-      <Backdrop show={props.show} closeBackdrop={props.modalClosed}></Backdrop>
+      <Backdrop showBackdrop={props.show} closeBackdrop={props.modalClosed}></Backdrop>
       <div
         className={classes.Modal}
         style={{
