@@ -4,6 +4,8 @@ import Button from "../../UI/Button/Button";
 import classes from "./OrderSummary.module.css";
 
 const orderSummary = (props) => {
+  console.log('[OrderSummary] rendering');
+
   const ingredientSummary = Object.keys(props.ingredients).map(
     (igKey, index) => {
       return (
