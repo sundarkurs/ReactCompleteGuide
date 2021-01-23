@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 const INGREDIENT_PRICES = {
   salad: 1,
@@ -62,7 +63,7 @@ class BurgerBuilder extends Component {
       deliveryMethod: "Quick"
     };
 
-    axios.post("/orders.json", payload)
+    axios.post("/orders", payload)
       .then(response => {
         this.setState({ loading: false, purchasing: false });
         console.log(response);
@@ -129,11 +130,14 @@ class BurgerBuilder extends Component {
   };
 
   render() {
+
+    // To disable the less button in the burger controls
     const lessDisableInfo = { ...this.state.ingredients };
     for (let key in lessDisableInfo) {
       lessDisableInfo[key] = lessDisableInfo[key] <= 0;
     }
 
+    // Model conten will be Spinner or Order summary
     let modelChildrens = <Spinner></Spinner>
 
     if (!this.state.loading) {
@@ -171,4 +175,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
