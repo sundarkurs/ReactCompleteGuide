@@ -15,15 +15,23 @@ const withErrorHandler = (WrappedComponent, axios) => {
         };
 
         componentWillMount() {
-            axios.interceptors.request.use(request => {
+            this.reqInterceptor = axios.interceptors.request.use(request => {
                 this.setState({ error: null });
                 return request;
             });
 
-            axios.interceptors.response.use(response => response, error => {
+            this.resInterceptor = axios.interceptors.response.use(response => response, error => {
                 this.setState({ error: error });
             });
 
+        }
+
+        // It's necessary, because when withErrorHandler used in multiple places in SPA
+        // the interceptors use will have multiple entries, hence causes memory leaks
+        // So it's good we remove on unmount of it.
+        componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
         }
 
         closeModelHandler = () => {
