@@ -22,17 +22,25 @@ class BurgerBuilder extends Component {
   // }
 
   state = {
-    ingredients: {
-      salad: 0,
-      cheese: 0,
-      meat: 0,
-      bacon: 0,
-    },
+    // ingredients: {
+    //   salad: 0,
+    //   cheese: 0,
+    //   meat: 0,
+    //   bacon: 0,
+    // },
+    ingredients: null,
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false
   };
+
+  componentDidMount() {
+    axios.get("/ingredients.json")
+      .then(response => {
+        this.setState({ ingredients: response.data });
+      })
+  }
 
   purchaseHandler = () => {
     this.setState({ purchasing: true });
@@ -43,7 +51,6 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    //alert("Continue....");
 
     this.setState({ loading: true });
 
@@ -63,7 +70,7 @@ class BurgerBuilder extends Component {
       deliveryMethod: "Quick"
     };
 
-    axios.post("/orders", payload)
+    axios.post("/orders.json", payload)
       .then(response => {
         this.setState({ loading: false, purchasing: false });
         console.log(response);
@@ -138,17 +145,36 @@ class BurgerBuilder extends Component {
     }
 
     // Model conten will be Spinner or Order summary
-    let modelChildrens = <Spinner></Spinner>
+    let modelChildrens = null;
 
-    if (!this.state.loading) {
+    if (this.state.loading) {
+      modelChildrens = <Spinner></Spinner>;
+    }
+
+    let burgerControlsJsx = <Spinner></Spinner>
+
+    if (this.state.ingredients) {
+
       modelChildrens = <OrderSummary
         ingredients={this.state.ingredients}
         purchaseContinue={this.purchaseContinueHandler}
         purchaseCancel={this.purchaseCancelHandler}
         totalPrice={this.state.totalPrice}
       ></OrderSummary>;
-    }
 
+      burgerControlsJsx =
+        <Auxiliary>
+          <Burger ingredients={this.state.ingredients}></Burger>
+          <BuildControls
+            ingredientAdded={this.addIngredientHandler}
+            ingredientRemoved={this.removeIngredientHandler}
+            lessDisableInfo={lessDisableInfo}
+            price={this.state.totalPrice}
+            purchasable={this.state.purchasable}
+            purchase={this.purchaseHandler}
+          ></BuildControls>
+        </Auxiliary>;
+    }
 
     return (
       <Auxiliary>
@@ -160,16 +186,8 @@ class BurgerBuilder extends Component {
           {modelChildrens}
         </Modal>
 
-        <Burger ingredients={this.state.ingredients}></Burger>
+        {burgerControlsJsx}
 
-        <BuildControls
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredientHandler}
-          lessDisableInfo={lessDisableInfo}
-          price={this.state.totalPrice}
-          purchasable={this.state.purchasable}
-          purchase={this.purchaseHandler}
-        ></BuildControls>
       </Auxiliary>
     );
   }
