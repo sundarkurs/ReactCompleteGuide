@@ -14,7 +14,14 @@
     color: black;
 }
 
-.Blogs a:hover,
+.Blogs a:hover{
+    color: #8afa3f
+}
+
 .Blogs a:active{
     color: #fa923f
+}
+
+.my-active-class{
+    color: #fa923f !important;
 }
