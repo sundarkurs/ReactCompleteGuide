@@ -11,7 +11,7 @@ class Posts extends Component {
     };
 
     postSelectedHandler = (id) => {
-        this.setState({ selectedPostId: id });
+        //this.props.history.push({ pathname: '/' + id });
     };
 
     componentDidMount() {
@@ -42,7 +42,8 @@ class Posts extends Component {
                             post={post}
                             clicked={() => this.postSelectedHandler(post.id)}>
                         </Post>
-                    </Link>);
+                    </Link>
+                );
             });
         }
 
