@@ -5,25 +5,26 @@
     outline: none;
     cursor: pointer;
     font: inherit;
-    padding: 10px;
-    margin: 10px;
+    padding: 15px 32px;
+    margin: 5px;
     font-weight: bold;
 }
 
-.Button:first-of-type {
+/* .Button:first-of-type {
     margin-left: 0;
     padding-left: 0;
-}
+} */
 
 .Button:disabled {
-    color: #ccc;
+    background-color: #e7e7e7; 
+    color: black;
     cursor: not-allowed;
 }
 
 .Success {
-    color: #5C9210;
+    background-color: #4CAF50;
 }
 
 .Danger {
-    color: #944317;
+    background-color: #f44336;
 }

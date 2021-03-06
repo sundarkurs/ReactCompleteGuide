@@ -64,38 +64,6 @@ class BurgerBuilder extends Component {
       pathname: 'checkout',
       search: '?' + queryString
     });
-
-
-
-    // this.setState({ loading: true });
-
-    // const payload = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: "Sundar",
-    //     email: "sundar@sun.com",
-    //     address: {
-    //       location: "Ideal homes",
-    //       city: "Bangalore",
-    //       zipCode: "560098",
-    //       country: "India"
-    //     }
-    //   },
-    //   deliveryMethod: "Quick"
-    // };
-
-    // axios.post("/orders.json", payload)
-    //   .then(response => {
-    //     this.setState({ loading: false, purchasing: false });
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     this.setState({ loading: false, purchasing: false });
-    //     console.log(error);
-    //   })
-
-
   };
 
   updatePurchaseState() {
